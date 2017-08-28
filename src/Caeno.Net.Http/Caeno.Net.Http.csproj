@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <PackOnBuild>true</PackOnBuild>
+    <Authors>Rafael Veronezi</Authors>
+    <Description>A simple library for HTTP communication.</Description>
+    <PackageId>Caeno.Net.Http</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <PackageProjectUrl>https://github.com/caeno/Caeno.Net.Http</PackageProjectUrl>
+    <PackageReleaseNotes>Initial Release.</PackageReleaseNotes>
+    <Summary>A simple library for HTTP communication.</Summary>
+    <Title>Caeno.Net.Http</Title>
+    <PackageTags>http net</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
+  </ItemGroup>
+</Project>
