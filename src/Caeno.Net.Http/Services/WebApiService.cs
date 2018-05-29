@@ -17,7 +17,7 @@ namespace Caeno.Net.Http.Services
     /// <summary>
     /// Basic implementation of the IWebApiService interface allowing Get and Post calls to HTTP Endpoints.
     /// </summary>
-    public class WebApiService : IWebApiService
+    public class WebApiService : IHttpHelper
 	{
 		static readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(15);
 		static readonly HttpMethod[] SUPPORTED_METHODS = {
@@ -96,7 +96,7 @@ namespace Caeno.Net.Http.Services
             return builder.Uri;
 		}
 
-		public async Task<WebApiResponse<TResult>> RequestAsync<TResult>(IApiRequest apiRequest, bool isAuthenticated = false) {
+        public async Task<WebApiResponse<TResult>> RequestAsync<TResult>(IApiRequest apiRequest, bool isAuthenticated = false, bool isAuthenticationOptional = false) {
 			HttpResponseMessage response = null;
 
 			// Configure the request
@@ -118,20 +118,21 @@ namespace Caeno.Net.Http.Services
 				 apiRequest.Content != null) {
 				request.Content = apiRequest.Content.AsHttpContent();
 			}
-			
-			// Finaly Add authentication
+
+            // Finaly Add authentication
+            HttpClient client = null;
 			if (isAuthenticated) {
-				if (AuthenticationProvider == null)
+                if (AuthenticationProvider == null && !isAuthenticationOptional)
 					throw new ArgumentNullException(nameof(AuthenticationProvider), "An authentication provider must be provided for authenticated requests.");
 
-				foreach (var entry in AuthenticationProvider.GetAuthenticationHeaders()) {
-					request.Headers.Add(entry.Key, entry.Value);
-				}
-			}
+                client = AuthenticationProvider != null ? _authenticatedClient : _client;
+            } else {
+                client = _client;
+            }
 
 			// Handles possible exceptions
 			try {
-				response = await _client.SendAsync(request);
+				response = await client.SendAsync(request);
 			} catch (TaskCanceledException ex) {
                 Logger?.Trace("Error trying execute Request: {0}", ex.Message);
 				return new WebApiResponse<TResult>(ex.Message, -1, WebApiResponseErrorType.Timeout);
