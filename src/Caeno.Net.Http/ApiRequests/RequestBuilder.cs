@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Caeno.Net.Http.Models;
 using Caeno.Net.Http.RequestContents;
+using System.Globalization;
 
 namespace Caeno.Net.Http.ApiRequests
 {
@@ -29,9 +30,12 @@ namespace Caeno.Net.Http.ApiRequests
             return this;
         }
 
-        public RequestBuilder AddQueryParam(string key, object value)
-        {
-            queryStringParams.Value.Add(key, value);
+        public RequestBuilder AddQueryParam(string key, object value) {
+            if (value is double doubleValue)
+                queryStringParams.Value.Add(key, doubleValue.ToString("G", CultureInfo.InvariantCulture));
+            else
+                queryStringParams.Value.Add(key, value);
+            
             return this;
         }
 
