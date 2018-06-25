@@ -17,7 +17,7 @@ namespace Caeno.Net.Http.Services
     /// <summary>
     /// Basic implementation of the IWebApiService interface allowing Get and Post calls to HTTP Endpoints.
     /// </summary>
-    public class WebApiService : IHttpHelper
+    public class HttpHelper : IHttpHelper
 	{
 		static readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(15);
 		static readonly HttpMethod[] SUPPORTED_METHODS = {
@@ -27,7 +27,7 @@ namespace Caeno.Net.Http.Services
 		HttpClient _client;
 		HttpClient _authenticatedClient;
 
-		public WebApiService(string baseUri) {
+		public HttpHelper(string baseUri) {
 			BaseUri = baseUri;
             _client = new HttpClient {
                 Timeout = DEFAULT_TIMEOUT
@@ -58,8 +58,8 @@ namespace Caeno.Net.Http.Services
 			}
 		}
 
-		private IAuthenticationProvider _authenticationProvider;
-		public IAuthenticationProvider AuthenticationProvider { 
+        IAuthenticationProvider _authenticationProvider;
+        public IAuthenticationProvider AuthenticationProvider { 
 			get { return _authenticationProvider; }
 			set {
 				_authenticationProvider = value;
