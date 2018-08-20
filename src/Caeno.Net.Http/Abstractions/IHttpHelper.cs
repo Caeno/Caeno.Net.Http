@@ -11,7 +11,7 @@ namespace Caeno.Net.Http.Abstractions
     /// <summary>
     /// Represents an Interface for a implementation of Web API service.
     /// </summary>
-    public interface IWebApiService
+    public interface IHttpHelper
 	{
 
 		#region Properties
@@ -39,9 +39,10 @@ namespace Caeno.Net.Http.Abstractions
 		/// </summary>
 		/// <param name="request">An API Request object.</param>
 		/// <param name="isAuthenticated">A flag indicating if the Request should be made using the Authentication provider.</param>
+        /// <param name="isAuthenticationOptional">A flag indicating if an Authenticated Request should be optional.</param>
 		/// <typeparam name="TResult">The type of the result object.</typeparam>
 		/// <returns>An WebApiResponse object with the results of the call.</returns>
-		Task<WebApiResponse<TResult>> RequestAsync<TResult>(IApiRequest request, bool isAuthenticated = false);
+		Task<WebApiResponse<TResult>> RequestAsync<TResult>(IApiRequest request, bool isAuthenticated = false, bool isAuthenticationOptional = false);
 
 		/// <summary>
 		/// Process the specified download API Request.
