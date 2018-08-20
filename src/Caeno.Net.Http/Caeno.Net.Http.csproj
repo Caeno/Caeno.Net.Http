@@ -6,14 +6,19 @@
     <Authors>Rafael Veronezi</Authors>
     <Description>A simple library for HTTP communication.</Description>
     <PackageId>Caeno.Net.Http</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <PackageProjectUrl>https://github.com/caeno/Caeno.Net.Http</PackageProjectUrl>
-    <PackageReleaseNotes>Initial Release.</PackageReleaseNotes>
+    <PackageReleaseNotes>Bug fixes.</PackageReleaseNotes>
     <Summary>A simple library for HTTP communication.</Summary>
     <Title>Caeno.Net.Http</Title>
     <PackageTags>http net</PackageTags>
+    <PackageLicenseUrl>https://github.com/Caeno/Caeno.Net.Http/blob/master/LICENSE.md</PackageLicenseUrl>
+    <Owners>ravero</Owners>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
